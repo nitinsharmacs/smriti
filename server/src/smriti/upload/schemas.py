@@ -1,4 +1,3 @@
-from typing import BinaryIO
 from pydantic import BaseModel
 
 

@@ -7,13 +7,6 @@ from .routers import create_api_router
 def create_app() -> FastAPI:
     app = FastAPI()
 
-    origins = [
-        "http://localhost:3000",
-        "http://localhost:8000",
-        "http://localhost:8080",
-        "http://localhost:8081",
-    ]
-
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
