@@ -1,6 +1,4 @@
-def main():
-    print("Hello world")
+from smriti.app import create_app
 
 
-if __name__ == "__main__":
-    main()
+app = create_app()
