@@ -25,7 +25,7 @@ def create_router():
     async def create_upload_txn(txn_req: NewTxnReqBody):
         txn = await uploadService.create_txn(txn_req.mediaCount)
 
-        return NewTxnRes(status=200, txnId=txn.id, mediaIds=txn.mediaIds)
+        return NewTxnRes(status=201, txnId=txn.id, mediaIds=txn.mediaIds)
 
     @upload_router.post("/upload")
     async def upload(
