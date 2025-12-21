@@ -1,15 +1,23 @@
 from fastapi import APIRouter, File, Form, UploadFile
 
-from .store import FileStore, Store
+from .repo.media_repo import MediaRepo
 
-from .txn_repo import TxnRepo
+from .repo.store import FileStore, Store
 
-from .schemas import NewTxnReqBody, NewTxnRes, UploadRes
+from .repo.txn_repo import TxnRepo
+
+from .schemas import (
+    CommitTxnReq,
+    CommitTxnRes,
+    NewTxnReqBody,
+    NewTxnRes,
+    UploadRes,
+)
 from .service import UploadService
 
 
 def create_router():
-    uploadService = UploadService(TxnRepo(), Store(FileStore()))
+    uploadService = UploadService(TxnRepo(), Store(FileStore()), MediaRepo())
 
     upload_router = APIRouter(prefix="/upload")
 
@@ -27,5 +35,10 @@ def create_router():
     ):
         filepath = await uploadService.upload_file(txnId, mediaId, file)
         return UploadRes(status=201, filepath=filepath)
+
+    @upload_router.put("/commit")
+    async def commit_upload_txn(txn: CommitTxnReq):
+        await uploadService.commit_txn(txn.txn_id)
+        return CommitTxnRes(status=201, txn_id=txn.txn_id)
 
     return upload_router
