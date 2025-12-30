@@ -1,0 +1,6 @@
+[submodule "smriti-server"]
+	path = smriti-server
+	url = git@github.com:nitinsharmacs/smriti-server.git
+[submodule "smriti-web"]
+	path = smriti-web
+	url = git@github.com:nitinsharmacs/smriti-web.git
